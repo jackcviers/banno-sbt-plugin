@@ -27,7 +27,7 @@ object MyBuild extends Build {
                               Resolver.withDefaultResolvers(rs, mavenCentral = true)
                             },
 
-                            libraryDependencies += "net.databinder" %% "dispatch-http" % "0.8.8",
+                            libraryDependencies += "net.databinder.dispatch" %% "dispatch-core" % "0.11.1",
 
                             scalacOptions ++= Seq("-deprecation", "-unchecked", "-feature", "-language:postfixOps"),
 
@@ -40,6 +40,7 @@ object MyBuild extends Build {
                           ) ++
                         Seq(
                           addSbtPlugin("com.eed3si9n" % "sbt-assembly" % "0.10.1"),
+                          addSbtPlugin("no.arktekk.sbt" % "aether-deploy" % "0.12.1"),
                           addSbtPlugin("com.github.gseitz" % "sbt-release" % "0.8"),
                           addSbtPlugin("io.spray" % "sbt-revolver" % "0.7.1"))
 }

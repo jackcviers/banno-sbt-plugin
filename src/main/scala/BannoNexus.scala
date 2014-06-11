@@ -1,6 +1,7 @@
 package com.banno
 import sbt._
 import Keys._
+import aether.Aether
 
 object BannoNexus {
   val bannoSnapshots = "Banno Snapshots Repo" at "http://nexus.banno.com/nexus/content/repositories/snapshots"
@@ -36,6 +37,5 @@ object BannoNexus {
       delete(userHome / ".ivy2" / "cache" / "scala_2.10.1" / "sbt_0.12" / "com.banno")
       delete(userHome / ".ivy2" / "cache" / "scala_2.10" / "sbt_0.13" / "com.banno")
     }
-  )
-
+  ) ++ Aether.aetherPublishSettings
 }

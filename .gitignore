@@ -4,3 +4,5 @@ lib_managed/
 src_managed/
 .idea/
 .idea_modules/
+/.ensime
+/.ensime_lucene/

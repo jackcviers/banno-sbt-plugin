@@ -19,7 +19,7 @@ object Yeoman {
   val bower = TaskKey[Unit]("Task to run bower")
   val gulp = TaskKey[Unit]("Task to run gulp")
 
-  val settings = Seq(
+  val settings: Def.SettingsDefinition = Seq(
     yeomanDirectory <<= (baseDirectory in Compile) {
       _ / "src" / "main" / "client"
     },
@@ -65,15 +65,15 @@ object Yeoman {
       val gulpFile = yeomanGulpfile.value
       if ((base / gulpFile).exists) runGulp(base)
     },
-    update dependsOn (npm),
-    update dependsOn (bower),
-    bower dependsOn (npm),
-    grunt dependsOn (npm),
-    grunt dependsOn (bower),
-    gulp dependsOn (npm),
-    gulp dependsOn (bower),
-    compile dependsOn (grunt),
-    compile dependsOn (gulp),
+    bower <<= bower.dependsOn(npm),
+    grunt <<= grunt.dependsOn(npm),
+    grunt <<= grunt.dependsOn(bower),
+    gulp <<= gulp.dependsOn(npm),
+    gulp <<= gulp.dependsOn(bower),
+    update <<= update.dependsOn(npm),
+    update <<= update.dependsOn(bower),
+    (compile in Compile) <<= (compile in Compile).dependsOn(grunt),
+    (compile in Compile) <<= (compile in Compile).dependsOn(gulp),
     commands <++= yeomanDirectory {
       base =>
         Seq(
